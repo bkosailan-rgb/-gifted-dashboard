@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول</title>
+</head>
+<body>
+  <p>جارٍ إكمال تسجيل الدخول...</p>
+
+  <script>
+    const APP_URL =
+      'https://script.google.com/macros/s/AKfycbydp57N8V84fGaSJ4a8bobgZmhraCTNplx-E5aera2uUeEtayZzm4xzxIH7qul2cq85/exec';
+
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const state = params.get('state');
+    const error = params.get('error');
+
+    if (error) {
+      window.location.replace(
+        APP_URL + '#oauth_error=' + encodeURIComponent(error)
+      );
+    } else if (code && state) {
+      window.location.replace(
+        APP_URL +
+        '#oauth_code=' + encodeURIComponent(code) +
+        '&oauth_state=' + encodeURIComponent(state)
+      );
+    } else {
+      document.body.innerHTML =
+        '<p>تعذر إكمال تسجيل الدخول. يرجى العودة إلى لوحة المتابعة.</p>';
+    }
+  </script>
+</body>
+</html>
